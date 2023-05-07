@@ -101,8 +101,7 @@ class _IntroductionSliderState extends State<IntroductionSlider> {
             itemCount: widget.items.length,
             physics: widget.physics,
             scrollDirection: widget.scrollDirection,
-            onPageChanged: (index) =>
-                setState(() => widget.initialPage = index),
+            onPageChanged: (index) => setState(() => widget.initialPage = index),
             itemBuilder: (context, index) {
               return Container(
                 decoration: BoxDecoration(
@@ -141,8 +140,7 @@ class _IntroductionSliderState extends State<IntroductionSlider> {
                             color: index == widget.initialPage
                                 ? widget.dotIndicator?.selectedColor
                                 : widget.dotIndicator?.unselectedColor ??
-                                    widget.dotIndicator?.selectedColor
-                                        ?.withOpacity(0.5),
+                                    widget.dotIndicator?.selectedColor?.withOpacity(0.5),
                           ),
                           height: widget.dotIndicator?.size,
                           width: index == widget.initialPage
@@ -173,35 +171,32 @@ class _IntroductionSliderState extends State<IntroductionSlider> {
                         ),
                   lastIndex
                       ? TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pushReplacement(
-                              PageRouteBuilder(
-                                transitionDuration:
-                                    widget.done.animationDuration!,
-                                transitionsBuilder: (context, animation,
-                                    secondAnimation, child) {
-                                  animation = CurvedAnimation(
-                                    parent: animation,
-                                    curve: widget.done.curve!,
-                                  );
-                                  return SlideTransition(
-                                    position: Tween<Offset>(
-                                      begin: widget.scrollDirection ==
-                                              Axis.vertical
-                                          ? const Offset(0, 1.0)
-                                          : const Offset(1.0, 0.0),
-                                      end: Offset.zero,
-                                    ).animate(animation),
-                                    child: child,
-                                  );
-                                },
-                                pageBuilder:
-                                    (context, animation, secondaryAnimation) {
-                                  return widget.done.home!;
-                                },
-                              ),
-                            );
-                          },
+                          onPressed: widget.done.onTap ??
+                              () {
+                                Navigator.of(context).pushReplacement(
+                                  PageRouteBuilder(
+                                    transitionDuration: widget.done.animationDuration!,
+                                    transitionsBuilder: (context, animation, secondAnimation, child) {
+                                      animation = CurvedAnimation(
+                                        parent: animation,
+                                        curve: widget.done.curve!,
+                                      );
+                                      return SlideTransition(
+                                        position: Tween<Offset>(
+                                          begin: widget.scrollDirection == Axis.vertical
+                                              ? const Offset(0, 1.0)
+                                              : const Offset(1.0, 0.0),
+                                          end: Offset.zero,
+                                        ).animate(animation),
+                                        child: child,
+                                      );
+                                    },
+                                    pageBuilder: (context, animation, secondaryAnimation) {
+                                      return widget.done.home!;
+                                    },
+                                  ),
+                                );
+                              },
                           style: widget.done.style,
                           child: widget.done.child,
                         )

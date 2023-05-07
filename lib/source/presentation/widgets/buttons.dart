@@ -60,6 +60,8 @@ class Done {
   /// A collection of common animation easing curves.
   final Curve? curve;
 
+  final VoidCallback? onTap;
+
   /// Redirects to the target page.
   final Widget? home;
   const Done({
@@ -68,5 +70,6 @@ class Done {
     this.animationDuration = const Duration(seconds: 1),
     this.curve = Curves.easeInOut,
     required this.home,
+    this.onTap,
   });
 }
